@@ -2,15 +2,9 @@
 # This script displays the content of the file /etc/passwd, using the while loop + IFS.
 
 # Open /etc/passwd for reading
-exec 3< /etc/passwd
-
-# Read each line from the file
-while IFS=: read -r username password user_id group_id home_directory shell; do
-  echo "The user $username is part of the $group_id gang, lives in $home_directory and rides $shell."
-  echo "USER ID's place is protected by the passcode $password, more info about the user here: $user_id."
-  echo
-done <&3
-
-# Close the file descriptor
-exec 3<&-
-
+while IFS=':' read -r username password uid gid info home shell; do
+  echo "The user $username is part of the $gid gang,"\
+  "lives in $home and rides $shell."\
+  "$uid's place is protected by the passcode $password,"\
+  "more info about the user here: $info"
+done < "/etc/passwd"
