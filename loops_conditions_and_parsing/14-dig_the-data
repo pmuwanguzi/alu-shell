@@ -5,5 +5,5 @@
 log_file="apache-access.log"
 
 # Use awk to process the log file, group by IP and HTTP status code, and sort the results
-awk '{print $1, $9}' "$log_file" | sort | uniq -c | sort -nr | awk '{print $1, $2, $3}'
+awk '{ print $1 " " $9}' "$log_file" | sort | uniq -c | sort -rn
 
