@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# This script displays the content of the file /etc/passwd, only displaying username, userid and Home directory path for the user
+
+# Open /etc/passwd for reading
+exec 3< /etc/passwd
+
+# Read each line from the file
+while IFS=: read -r username _ user_id _ home_directory _ <&3; do
+  echo "Username: $username"
+  echo "User ID: $user_id"
+  echo "Home Directory: $home_directory"
+  echo
+done
+
+# Close the file descriptor
+exec 3<&-
+
